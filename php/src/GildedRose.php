@@ -18,6 +18,10 @@ final class GildedRose
     {
         // loop items
         foreach ($this->items as $item) {
+            if ($item->name === 'Sulfuras, Hand of Ragnaros') {
+                continue; // spec: sulfuras never has to be sold and never decreases in quality
+            }
+
             // handle quality when sell date is not passed
             if ($item->name === 'Aged Brie' || $item->name === 'Backstage passes to a TAFKAL80ETC concert') {
                 if ($item->quality < 50) { // spec: quality can never increase above 50
@@ -36,15 +40,11 @@ final class GildedRose
                     }
                 }
             } elseif ($item->quality > 0) { // spec: quality is never negative
-                if ($item->name !== 'Sulfuras, Hand of Ragnaros') { // spec: sulfuras never decreases in quality
-                    $item->quality--; // spec: standard items' quality decrease by 1 every day
-                }
+                $item->quality--;
             }
 
             // subtract a day from sellIn
-            if ($item->name !== 'Sulfuras, Hand of Ragnaros') { // spec: sulfuras never has to be sold
-                $item->sellIn--;
-            }
+            $item->sellIn--;
 
             // handle 'passed sell date' quality rules
             if ($item->sellIn < 0) {
@@ -55,9 +55,7 @@ final class GildedRose
                 } elseif ($item->name === 'Backstage passes to a TAFKAL80ETC concert') {
                     $item->quality = 0; // spec: backstage passes are worthless after the concert
                 } elseif ($item->quality > 0) { // spec: quality is never negative
-                    if ($item->name !== 'Sulfuras, Hand of Ragnaros') { // spec: sulfuras never decreases in quality
-                        $item->quality--; // spec: once the sellIn date has passed, quality degrades twice as fast
-                    }
+                    $item->quality--; // spec: once the sellIn date has passed, quality degrades twice as fast
                 }
             }
         }
