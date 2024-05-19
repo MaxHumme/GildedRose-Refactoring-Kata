@@ -6,14 +6,21 @@ namespace GildedRose;
 
 final class GildedRose
 {
-    const int QUALITY_MIN = 0;
-    const int QUALITY_MAX = 50;
+    private const int QUALITY_MIN = 0;
+
+    private const int QUALITY_MAX = 50;
+
+    private const string ITEM_AGED_BRIE = 'Aged Brie';
+
+    private const string ITEM_BACKSTAGE_PASSES = 'Backstage passes to a TAFKAL80ETC concert';
+
+    private const string ITEM_SULFURAS = 'Sulfuras, Hand of Ragnaros';
 
     /**
      * @param Item[] $items
      */
     public function __construct(
-        private readonly array $items
+        private array $items
     ) {
     }
 
@@ -21,20 +28,20 @@ final class GildedRose
     {
         // loop items
         foreach ($this->items as $item) {
-            if ($item->name === 'Sulfuras, Hand of Ragnaros') {
+            if ($item->name === self::ITEM_SULFURAS) {
                 continue; // spec: sulfuras never has to be sold and never decreases in quality
             }
 
-            if ($item->name === 'Aged Brie') {
+            if ($item->name === self::ITEM_AGED_BRIE) {
                 if ($item->quality < self::QUALITY_MAX) { // spec: quality can never increase above self::QUALITY_MAX
-                    $item->quality++; // spec: aged brie and backstage passes increase in quality the older they get
+                    $item->quality++; // spec: quality of aged brie increases the older it gets
                 }
                 if ($item->sellIn <= 0) {
                     if ($item->quality < self::QUALITY_MAX) {
                         $item->quality++; // spec: quality of aged brie increases the older it gets
                     }
                 }
-            } elseif ($item->name === 'Backstage passes to a TAFKAL80ETC concert') {
+            } elseif ($item->name === self::ITEM_BACKSTAGE_PASSES) {
                 if ($item->quality < self::QUALITY_MAX) { // spec: quality can never increase above self::QUALITY_MAX
                     $item->quality++; // spec: aged brie and backstage passes increase in quality the older they get
                     if ($item->sellIn < 11) {
