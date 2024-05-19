@@ -1,0 +1,5 @@
+services:
+  kata:
+    build: .
+    volumes:
+      - .:/usr/src/php-kata
