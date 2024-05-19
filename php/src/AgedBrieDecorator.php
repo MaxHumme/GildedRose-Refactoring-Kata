@@ -13,7 +13,7 @@ class AgedBrieDecorator extends AbstractItemDecorator
         }
         if ($this->item->sellIn <= 0) {
             if ($this->item->quality < self::QUALITY_MAX) {
-                $this->item->quality++; // spec: quality of aged brie increases the older it gets
+                $this->item->quality++; // hidden spec: quality of aged brie increases twice as fast when sell date is passed
             }
         }
 

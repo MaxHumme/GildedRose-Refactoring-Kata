@@ -9,15 +9,15 @@ class BackstagePassesDecorator extends AbstractItemDecorator
     public function updateQuality(): void
     {
         if ($this->item->quality < self::QUALITY_MAX) { // spec: quality can never increase above self::QUALITY_MAX
-            $this->item->quality++; // spec: aged brie and backstage passes increase in quality the older they get
+            $this->item->quality++; // spec: backstage passes increase in quality the older they get
             if ($this->item->sellIn < 11) {
                 if ($this->item->quality < self::QUALITY_MAX) { // spec: quality can never increase above self::QUALITY_MAX
-                    $this->item->quality++; // spec backstage passes increase by 2 when sellIn is < 11
+                    $this->item->quality++; // spec: backstage passes increase by 2 when sellIn is < 11
                 }
             }
             if ($this->item->sellIn < 6) {
                 if ($this->item->quality < self::QUALITY_MAX) { // spec: quality can never increase above self::QUALITY_MAX
-                    $this->item->quality++; // spec backstage passes increase by 3 when sellIn is < 6
+                    $this->item->quality++; // spec: backstage passes increase by 3 when sellIn is < 6
                 }
             }
         }

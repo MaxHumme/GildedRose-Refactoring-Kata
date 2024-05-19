@@ -22,7 +22,7 @@ final class GildedRose
 
     public function updateQuality(): void
     {
-        // loop items
+        // update quality for all items
         foreach ($this->items as $item) {
             $this->createDecoratorFor($item)->updateQuality();
         }

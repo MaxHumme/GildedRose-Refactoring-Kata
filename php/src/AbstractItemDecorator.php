@@ -6,9 +6,9 @@ namespace GildedRose;
 
 abstract class AbstractItemDecorator
 {
-    protected const int QUALITY_MIN = 0;
+    public const int QUALITY_MIN = 0;
 
-    protected const int QUALITY_MAX = 50;
+    public const int QUALITY_MAX = 50;
 
     protected Item $item;
 

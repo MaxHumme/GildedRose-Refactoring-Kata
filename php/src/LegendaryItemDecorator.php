@@ -8,7 +8,7 @@ class LegendaryItemDecorator extends AbstractItemDecorator
 {
     public function updateQuality(): void
     {
-        // spec: sulfuras never has to be sold and never decreases in quality
+        // spec: sulfuras never has to be sold and never degrades in quality
         // so no updates done here!
     }
 }
