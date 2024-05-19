@@ -12,6 +12,8 @@ final class GildedRose
 
     private const string ITEM_SULFURAS = 'Sulfuras, Hand of Ragnaros';
 
+    private const string ITEM_CONJURED_MANA_CAKE = 'Conjured Mana Cake';
+
     /**
      * @param Item[] $items
      */
@@ -34,6 +36,7 @@ final class GildedRose
             self::ITEM_SULFURAS => new LegendaryItemDecorator($item),
             self::ITEM_BACKSTAGE_PASSES => new BackstagePassesDecorator($item),
             self::ITEM_AGED_BRIE => new AgedBrieDecorator($item),
+            self::ITEM_CONJURED_MANA_CAKE => new ConjuredItemDecorator($item),
             default => new StandardItemDecorator($item),
         };
     }
