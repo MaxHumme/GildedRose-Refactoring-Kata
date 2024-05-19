@@ -8,19 +8,19 @@ class StandardItemDecorator extends AbstractItemDecorator
 {
     public function updateQuality(): void
     {
-        // handle quality when sell date is not passed
-        if ($this->item->quality > self::QUALITY_MIN) { // spec: quality is never negative
-            $this->item->quality--;
+        // update quality
+        if ($this->item->sellIn <= 0) {
+            $this->item->quality -= 2; // spec: once the sellIn date has passed, quality degrades twice as fast
+        } else {
+            $this->item->quality--; // spec: quality degrades by 1
         }
 
-        // handle 'passed sell date' quality rules
-        if ($this->item->sellIn <= 0) {
-            if ($this->item->quality > self::QUALITY_MIN) { // spec: quality is never negative
-                $this->item->quality--; // spec: once the sellIn date has passed, quality degrades twice as fast
-            }
+        // guard minimum quality
+        if ($this->item->quality < self::QUALITY_MIN) {
+            $this->item->quality = self::QUALITY_MIN; // spec: quality is never negative
         }
 
         // subtract a day from sellIn
-        $this->item->sellIn--;
+        $this->item->sellIn--; // spec: sellIn decreases by 1
     }
 }

@@ -8,13 +8,16 @@ class AgedBrieDecorator extends AbstractItemDecorator
 {
     public function updateQuality(): void
     {
-        if ($this->item->quality < self::QUALITY_MAX) { // spec: quality can never increase above self::QUALITY_MAX
+        // update quality
+        if ($this->item->sellIn <= 0) {
+            $this->item->quality += 2; // hidden spec: quality of aged brie increases twice as fast when sell date is passed
+        } else {
             $this->item->quality++; // spec: quality of aged brie increases the older it gets
         }
-        if ($this->item->sellIn <= 0) {
-            if ($this->item->quality < self::QUALITY_MAX) {
-                $this->item->quality++; // hidden spec: quality of aged brie increases twice as fast when sell date is passed
-            }
+
+        // guard maximum quality
+        if ($this->item->quality > self::QUALITY_MAX) {
+            $this->item->quality = self::QUALITY_MAX; // spec: quality can never increase above self::QUALITY_MAX
         }
 
         // subtract a day from sellIn
